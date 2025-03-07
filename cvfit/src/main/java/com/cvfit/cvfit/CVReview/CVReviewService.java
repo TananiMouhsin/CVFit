@@ -7,6 +7,15 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.file.Path;
@@ -17,20 +26,17 @@ import java.util.List;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.google.gson.Gson;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
-
 class Points {
-
     private String[] strengths;
     private String[] suggestions;
-        
-            public Points(String[] strengths, String[] suggestions) {
-                this.strengths = strengths;
-            this.suggestions = suggestions;
+
+    public Points(String[] strengths, String[] suggestions) {
+        this.strengths = strengths;
+        this.suggestions = suggestions;
     }
 
 
