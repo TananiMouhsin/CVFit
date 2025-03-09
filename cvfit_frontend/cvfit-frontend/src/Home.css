@@ -1,0 +1,157 @@
+/* Style pour la page globale */
+body{
+  background-color: #E8EEF1;
+}
+
+.cvfit-container {
+    text-align: center;
+    display: flex;
+    flex-direction: column ; 
+    align-items: center;
+
+
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    position: relative; 
+  }
+  
+  
+  .auth-buttons {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 5px;
+  }
+  
+  /* Bouton de base */
+  .btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .signup {
+    background-color: #3182ce;
+    color: white;
+  }
+  
+  .login {
+    background-color: #38a169;
+    color: white;
+  }
+  
+  .cvfit-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2b6cb0;
+  }
+  
+  .cvfit-subtitle {
+    font-size: 20px;
+    font-weight: bold;
+    color: #2b6cb0  ;
+  }
+  
+  .cvfit-description {
+    margin: 10px auto;
+    width: 60%;
+    font-size: 16px;
+    color: #1a202c;
+  }
+  
+  /* Upload Section */
+  .upload-section {
+    margin: 20px auto;
+    padding: 20px;
+    /* border: 2px dashed #cbd5e0; */
+    border-radius: 10px;
+    width: 50%;
+    text-align: center;
+    transition: all 0.3s;
+  }
+  
+  /* .upload-section:hover {
+    background-color: #f1f1f1;
+  } */
+  
+  .upload-box {
+    font-size: 50px; 
+    /* background: #d7d7d7; */
+    padding: 20px;
+    border-radius: 6px;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center; 
+    width: 200px; 
+    height: 80px; 
+    line-height: 80px;
+      background: linear-gradient(to bottom, #E8EEF1 20%, #43B0F199 100%);
+  }
+  
+  /* .upload-box:hover {
+    background-color: #e2e8f0; 
+  }
+   */
+  
+
+  .evaluate {
+    background-color: #3182ce;
+    color: white;
+ 
+  }
+  
+  .find-job {
+    background-color: #38a169;
+    color: white;
+  }
+  
+  .features {
+    display: flex;
+    justify-content: space-between;
+
+    padding-left: 10%;
+    padding-right: 10%;
+    /* margin-top: 20px; */
+  }
+  
+  .feature-box {
+    width: 25%;
+    padding: 15px;
+    border-radius: 10px;
+    background: linear-gradient(to bottom, #E8EEF1 20%, #43B0F199 100%);
+    height: 20vh;
+  }
+  .error-message{
+    color: red;
+  }
+
+  .CVbutton{
+    border:  none ;
+    background-color: #43B0F1;
+    padding :3% 7% ; 
+    border-radius: 20px;
+
+  }
+
+  .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 30%;
+    
+  }
+
+  .box1{
+    margin-bottom: 30%;
+  }
+  .box2{
+    margin-top: 5%;
+    
+  }
+  .box3{
+    margin-bottom: 30%;
+  }
+  

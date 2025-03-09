@@ -1,0 +1,106 @@
+.container {
+    background: linear-gradient(to bottom, #cce5ff, white);
+    min-height: 100vh;
+    padding: 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column
+
+
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+.cv-picture {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.details-image {
+    width: 15%;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* Ajustement des icônes et des titres */
+.section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section img {
+    width: 10%;
+    height: auto;
+    margin-bottom: 5px;
+}
+
+.card-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Ajustement de la disposition des cartes */
+.grid-container {
+    display: flex;
+    grid-template-columns: 1fr 1fr;
+    /* gap: 20px; */
+    width: 80%;
+    margin: 0 auto;
+    
+}
+
+.card {
+    flex: 1;
+    padding: 20px;
+    border-radius: 15px;
+    
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    /* height: 40vh; */
+
+}
+
+.strengths {
+    background: #43B0F18C;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.enhancements {
+    background: #F3F6F8;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.card-content {
+    list-style: none;
+    padding: 0;
+}
+
+.card-content li {
+    font-size: 16px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    color: black;
+}
+
+.card-content li::before {
+    margin-right: 10px;
+}
+
+.card-content img{
+    width: 5%;
+    margin-right: 20px;
+}
+

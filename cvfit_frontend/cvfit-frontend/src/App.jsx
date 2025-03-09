@@ -1,15 +1,19 @@
-  import { useState } from 'react'
-  import reactLogo from './assets/react.svg'
-  import viteLogo from '/vite.svg'
-  import './App.css'
-  import Jobs from "./jobs.jsx"
 
+
+  import './index.css'
+  import Jobs from "./jobs.jsx"
+  import Login from "./login.jsx"
+  import SignUp from "./Signup.jsx"
+  import Home from "./Home.jsx"
+  import Details from "./Details.jsx"
+
+  
   function App() {
-    const [count, setCount] = useState(0)
+
 
     return (
       <>
-        <Jobs/>
+        <Details/>
       </>
     )
   }

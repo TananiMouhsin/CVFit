@@ -4,7 +4,8 @@ import cvimg from './assets/cv.webp'
 function Jobs() {
 
   return (
-    <>
+
+    <div className="jobspage">
     <div className="header">
     <h2>Emplois</h2>
     <h2>Adapetes a votre Cv</h2>
@@ -85,7 +86,8 @@ function Jobs() {
 
     </div>
 
-    </>
+    </div>
+
   )
 }
 
