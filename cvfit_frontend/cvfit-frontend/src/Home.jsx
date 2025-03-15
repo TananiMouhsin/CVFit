@@ -23,7 +23,7 @@ const Home = () => {
 
     if (droppedFile && droppedFile.type === "application/pdf") {
       setFile(droppedFile);
-      setError(""); // Réinitialiser l'erreur si le bon fichier est déposé
+      setError("");
     } else {
       setFile(null);
       setError("Seuls les fichiers PDF sont autorisés !");
@@ -35,15 +35,10 @@ const Home = () => {
   };
 
   return (
-    <div className="cvfit-container">
-      {/* Navigation Buttons */}
+    <div className="home-container">
+
       <div className="auth-buttons">
-        {/* <Link to="/signup"> */}
-          {/* <button className="btn signup">Sign Up</button> */}
-        {/* </Link> */}
-        {/* <Link to="/login"> */}
-          {/* <button className="btn login">Login</button> */}
-        {/* </Link> */}
+
       </div>
 
       <header className="cvfit-header">

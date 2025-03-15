@@ -10,7 +10,7 @@ function Jobs() {
     <h2>Emplois</h2>
     <h2>Adapetes a votre Cv</h2>
     </div>
-    <div className="container">
+    <div className="jobs-container">
         <div className="left">
         <img src={cvimg} alt="" />
         </div>

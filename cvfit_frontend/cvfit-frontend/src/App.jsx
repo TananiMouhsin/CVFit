@@ -13,7 +13,7 @@
 
     return (
       <>
-        <Details/>
+        <Home/>
       </>
     )
   }

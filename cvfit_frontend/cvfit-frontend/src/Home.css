@@ -1,9 +1,12 @@
-/* Style pour la page globale */
 body{
-  background-color: #E8EEF1;
-}
 
-.cvfit-container {
+  color : black; 
+  background: linear-gradient(to bottom, #E8EEF1 20%, #43B0F199 100%);
+  height: 100vh;
+  margin: 0;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+.home-container {
     text-align: center;
     display: flex;
     flex-direction: column ; 
@@ -88,7 +91,7 @@ body{
     width: 200px; 
     height: 80px; 
     line-height: 80px;
-      background: linear-gradient(to bottom, #E8EEF1 20%, #43B0F199 100%);
+      background: rgb(200, 200, 200);
   }
   
   /* .upload-box:hover {
@@ -111,12 +114,19 @@ body{
   .features {
     display: flex;
     justify-content: space-between;
+    align-items: center; /* Centers box2 while keeping box1 & box3 higher */
 
     padding-left: 10%;
     padding-right: 10%;
-    /* margin-top: 20px; */
+    margin-top: 20px;
+
   }
-  
+
+  .feature-box:nth-child(1),
+  .feature-box:nth-child(3) {
+    position: relative;
+    top: -40px; /* Moves them higher */
+  }
   .feature-box {
     width: 25%;
     padding: 15px;
@@ -143,15 +153,3 @@ body{
     width: 30%;
     
   }
-
-  .box1{
-    margin-bottom: 30%;
-  }
-  .box2{
-    margin-top: 5%;
-    
-  }
-  .box3{
-    margin-bottom: 30%;
-  }
-  
