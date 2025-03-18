@@ -13,9 +13,9 @@
 
     return (
       <>
-        <Details/>
+        <Home />
       </>
-    )
+    );
   }
 
   export default App
