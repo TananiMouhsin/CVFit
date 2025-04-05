@@ -7,15 +7,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.file.Path;
@@ -26,6 +17,7 @@ import java.util.List;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.springframework.web.multipart.MultipartFile;
+
 import com.google.gson.Gson;
 
 import io.github.cdimascio.dotenv.Dotenv;
@@ -36,6 +28,22 @@ class Points {
 
     public Points(String[] strengths, String[] suggestions) {
         this.strengths = strengths;
+        this.suggestions = suggestions;
+    }
+
+    public String[] getStrengths() {
+        return strengths;
+    }
+
+    public void setStrengths(String[] strengths) {
+        this.strengths = strengths;
+    }
+
+    public String[] getSuggestions() {
+        return suggestions;
+    }
+
+    public void setSuggestions(String[] suggestions) {
         this.suggestions = suggestions;
     }
 
@@ -144,9 +152,10 @@ public class CVReviewService {
     public static String analyzeResumeWithGPT(String resumeText) {
         Path path = Paths.get("cvfit/.").toAbsolutePath().getParent();
         String url = "https://api.openai.com/v1/chat/completions";
-        Dotenv dotenv = Dotenv.configure().directory(path+"/.env").load();
+        Dotenv dotenv = Dotenv.configure().directory("C:\\Users\\DELL\\Desktop\\CVFIT\\CVFit\\cvfit\\.env").load();
         String apiKey = dotenv.get("GPT_API_KEY");
         String model = "gpt-3.5-turbo"; 
+        System.out.println(apiKey);
 
         try {
             URL obj = new URL(url);
@@ -160,7 +169,7 @@ public class CVReviewService {
                           "  \"model\": \"" + model + "\",\n" +
                           "  \"messages\": [\n" +
                           "    {\"role\": \"system\", \"content\": \"You are a helpful assistant specializing in resume analysis.\"},\n" +
-                          "    {\"role\": \"user\", \"content\": \"You are an expert resume analyzer. Provide detailed feedback on the following resume: Resume Text: " + resumeText + "   Format the response as follows:  Strengths: [List of strengths separated by newlines] (return to line );; Suggestions for improvement: [List of suggestions separated by newlines ] (return to line );; Avoid using characters with hex codes 0x5C and 0x2F. \"}\n" +
+                          "    {\"role\": \"user\", \"content\": \"You are an expert resume analyzer. Provide detailed feedback on the following resume: Resume Text: " + resumeText + "   Format the response as follows:  5 Strengths: [List of strengths separated by newlines] (return to line );; 5 Suggestions for improvement: [List of suggestions separated by newlines ] (return to line );; Avoid using characters with hex codes 0x5C and 0x2F. \"}\n" +
                           "  ],\n" +
                           "  \"max_tokens\": 1000,\n" +
                           "  \"temperature\": 0.7\n" +

@@ -1,10 +1,109 @@
 import React, { useState } from "react";
+
 import { Link } from "react-router-dom";
 import "./Home.css";
-
+import { useNavigate } from "react-router-dom";
 const Home = () => {
+  const navigate = useNavigate();
   const [file, setFile] = useState(null);
   const [error, setError] = useState("");
+  const [Strengths, setStrengths] = useState("");
+  const [Suggestions, setSuggestions] = useState("");
+
+  const uploadCV = async () => {
+    console.log("Uploading CV..."); 
+    if (!file) {
+        alert("Veuillez sélectionner un fichier avant d'envoyer !");
+        return;
+    } 
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+        const response = await fetch("http://localhost:8080/CVReview/CV", {
+            method: "POST",
+            body: formData,
+        });
+
+        if (!response.ok) {
+            throw new Error("Erreur lors de l'analyse du CV.");
+        }
+
+        const data = await response.json();
+        console.log("Response Data:", data);
+
+        // Extract strengths & suggestions
+        const strengths = data.strengths || [];
+        const suggestions = data.suggestions || [];
+
+        // Find the minimum length between the two arrays
+        const minLength = Math.min(strengths.length, suggestions.length);
+
+        // // Pad the shorter array with empty strings (or any placeholder value)
+        // if (strengths.length < minLength) {
+        //     strengths.push(...Array(minLength - strengths.length).fill(''));
+        // }
+        // if (suggestions.length < minLength) {
+        //     suggestions.push(...Array(minLength - suggestions.length).fill(''));
+        // } 
+
+        console.log("Strengths:", strengths);
+        console.log("Suggestions:", suggestions);
+
+        // Navigate with the padded arrays
+        navigate("/details", { state: { strengths, suggestions } });
+
+    } catch (error) {
+        console.error("Erreur:", error);
+    }
+};
+
+
+const GetJobs = async () => {
+  console.log("Uploading CV..."); 
+  if (!file) {
+      alert("Veuillez sélectionner un fichier avant d'envoyer !");
+      return;
+  } 
+
+  const formData = new FormData();
+  formData.append("file", file);
+
+  try {
+      const response = await fetch("http://localhost:8080/CVRoles/Scrap", {
+          method: "POST",
+          body: formData,
+      });
+
+      if (!response.ok) {
+          throw new Error("Erreur lors de l'analyse du CV.");
+      }
+
+      const data = await response.json();
+      console.log("Response Data:", data);
+
+      // Assuming data is an array of job objects with City, Link, Title
+      const jobs = data.map(item => ({
+          city: item.City,
+          link: item.Link,
+          title: item.Title
+      }));
+
+      console.log("List of Jobs:", jobs);
+
+      // If using React, you can save it in a state (if needed)
+      // setJobs(jobs); // Assuming you have a `jobs` state to store the jobs.
+
+      // If you want to navigate to another page and pass the list of jobs:
+      navigate("/Jobs", { state: { jobs } });
+
+  } catch (error) {
+      console.error("Erreur:", error);
+  }
+};
+
+  
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -74,10 +173,10 @@ const Home = () => {
 
       {/* Buttons */}
       <div className="buttons">
-        <button className="CVbutton" disabled={!file}>
+        <button className="CVbutton" onClick={uploadCV} disabled={!file}>
           Évaluer mon CV
         </button>
-        <button className="CVbutton">Trouver un emploi</button>
+        <button className="CVbutton" onClick={GetJobs}>Trouver un emploi</button>
       </div>
 
       <p className="cvfit-result-text">

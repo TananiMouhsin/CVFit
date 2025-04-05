@@ -1,6 +1,4 @@
 package com.cvfit.cvfit.CVReview;
-import java.io.IOException;
-
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,7 +24,6 @@ public class CVReviewController {
         if (!file.getContentType().contains("pdf")) {
             return "Failed: Only PDF files are allowed!";
         }
-
         return CVReviewService.ReviewCV(file);
     }
 }

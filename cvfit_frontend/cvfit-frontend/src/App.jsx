@@ -1,4 +1,6 @@
+import React from 'react';
 
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
   import './index.css'
   import Jobs from "./jobs.jsx"
@@ -12,9 +14,25 @@
 
 
     return (
-      <>
-        <Home/>
-      </>
+      <Router>
+      <Routes>
+        <Route path="/" element={
+          <>
+          <Home/>
+          </>
+        } />
+        
+        <Route path="/details" element={<>
+        <Details/>
+        </>
+        } />
+
+        <Route path="/Jobs" element={<>
+        <Jobs/>
+        </>
+        } />
+      </Routes>
+    </Router>
     )
   }
 

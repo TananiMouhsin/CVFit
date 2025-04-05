@@ -1,6 +1,4 @@
 package com.cvfit.cvfit.CVRoles;
-import com.cvfit.cvfit.CVReview.CVReviewService;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
