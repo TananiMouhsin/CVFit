@@ -83,14 +83,18 @@ public class CVReviewService {
     
         String strengthsSection = sections[0].replace("Strengths:", "").trim();
         String suggestionsSection = sections[1].trim();
-        
-    
 
-        strengthsSection = cleanSection(strengthsSection);
+        String trimmedstrengthsSection = strengthsSection.substring(2, strengthsSection.length() - 2);
+    
+        System.out.println(trimmedstrengthsSection);
+        System.out.println(suggestionsSection);
+
+        strengthsSection = cleanSection(trimmedstrengthsSection);
         suggestionsSection = cleanSection(suggestionsSection);
 
         if (strengthsSection.endsWith("\\n")) {
             strengthsSection = strengthsSection.substring(0, strengthsSection.length() - 2).trim(); // Remove the trailing "\n"
+            
         }
     
 
@@ -152,7 +156,7 @@ public class CVReviewService {
     public static String analyzeResumeWithGPT(String resumeText) {
         Path path = Paths.get("cvfit/.").toAbsolutePath().getParent();
         String url = "https://api.openai.com/v1/chat/completions";
-        Dotenv dotenv = Dotenv.configure().directory("C:\\Users\\DELL\\Desktop\\CVFIT\\CVFit\\cvfit\\.env").load();
+        Dotenv dotenv = Dotenv.configure().directory("cvfit/.env").load();
         String apiKey = dotenv.get("GPT_API_KEY");
         String model = "gpt-3.5-turbo"; 
         System.out.println(apiKey);
@@ -169,7 +173,7 @@ public class CVReviewService {
                           "  \"model\": \"" + model + "\",\n" +
                           "  \"messages\": [\n" +
                           "    {\"role\": \"system\", \"content\": \"You are a helpful assistant specializing in resume analysis.\"},\n" +
-                          "    {\"role\": \"user\", \"content\": \"You are an expert resume analyzer. Provide detailed feedback on the following resume: Resume Text: " + resumeText + "   Format the response as follows:  5 Strengths: [List of strengths separated by newlines] (return to line );; 5 Suggestions for improvement: [List of suggestions separated by newlines ] (return to line );; Avoid using characters with hex codes 0x5C and 0x2F. \"}\n" +
+                          "    {\"role\": \"user\", \"content\": \"You are an expert resume analyzer. Provide detailed feedback on the following resume: Resume Text: " + resumeText + "   Format the response as follows:  5 Strengths: [List of strengths separated by 0x2D instead of new lines] (return to line );; 5 Suggestions for improvement: [List of suggestions separated by 0x2D instead of new lines] (return to line );; Avoid using characters with hex codes 0x5C and 0x2F. \"}\n" +
                           "  ],\n" +
                           "  \"max_tokens\": 1000,\n" +
                           "  \"temperature\": 0.7\n" +
