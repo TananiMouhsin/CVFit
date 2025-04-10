@@ -24,6 +24,7 @@ public class CVReviewController {
         if (!file.getContentType().contains("pdf")) {
             return "Failed: Only PDF files are allowed!";
         }
+
         return CVReviewService.ReviewCV(file);
     }
 }

@@ -45,7 +45,7 @@ const Details = () => {
                         {/* <li>Streamline the resume layout with clear section headings and bullet points for easy readability.</li>
                             <li>Streamline the resume layout with clear section headings and bullet points for easy readability.</li>
 
-                            <li>Streamline the resume layout with clear section headings and bullet points for easy readability.</li>
+                            <li>Streamline the resume layout with clear section headings and bullet points fror easy readability.</li>
 
                             <li>Streamline the resume layout with clear section headings and bullet points for easy readability.</li> */}
 
