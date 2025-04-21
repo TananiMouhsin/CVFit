@@ -115,7 +115,7 @@ public class CVRolesService {
     public static String[] analyzeResumeForJobRoles(String resumeText) {
         Path path = Paths.get("cvfit/.").toAbsolutePath().getParent();
         String url = "https://api.openai.com/v1/chat/completions";
-        Dotenv dotenv = Dotenv.configure().directory(path+"/CVFit/.env").load();
+        Dotenv dotenv = Dotenv.configure().directory("cvfit/.env").load();
         String apiKey = dotenv.get("GPT_API_KEY");
         String model = "gpt-3.5-turbo";
         System.out.println(apiKey);

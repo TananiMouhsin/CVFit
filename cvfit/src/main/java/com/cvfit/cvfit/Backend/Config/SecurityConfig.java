@@ -1,6 +1,5 @@
 package com.cvfit.cvfit.Backend.Config;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +19,7 @@ import com.cvfit.cvfit.Backend.Security.CustomUserDetailsService;
 import com.cvfit.cvfit.Backend.repository.UserRepository;
 
 import jakarta.servlet.http.HttpServletResponse;
+
 @ComponentScan(basePackages = "com.example.demo")
 @Configuration
 public class SecurityConfig {
@@ -30,10 +30,13 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/login", "/auth/signup", "/auth/logout").permitAll()
-                        .requestMatchers("/user/me", "/CVReview/CV","/CVRoles/Scrap","/CVRoles/GetRoles").permitAll()
+                        .requestMatchers("/user/me", "/CVReview/CV", "/CVRoles/Scrap", "/CVRoles/GetRoles").permitAll()
+                        .requestMatchers("/cv/upload").authenticated() // <--- AJOUT ICI
                         .anyRequest().authenticated()
                 )
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                )
                 .exceptionHandling(handling -> handling.authenticationEntryPoint(
                         (request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
                 ));
