@@ -1,15 +1,24 @@
 package com.cvfit.cvfit.Backend.Controller;
-import com.cvfit.cvfit.Backend.repository.UserRepository;
-import com.cvfit.cvfit.Backend.Entities.User;
-import com.cvfit.cvfit.Backend.Services.UserService;
-import jakarta.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.Optional;
+import com.cvfit.cvfit.Backend.Entities.User;
+import com.cvfit.cvfit.Backend.Services.UserService;
+import com.cvfit.cvfit.Backend.repository.UserRepository;
+
+import jakarta.servlet.http.HttpSession;
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -61,7 +70,7 @@ public class UserController {
         System.out.println("👤 Utilisateur dans la session: " + (user != null ? user.getUserEmail() : "null"));
 
         if (user == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not logged in");
+            return ResponseEntity.status(HttpStatus.OK).body("User not logged in");
         }
 
         return ResponseEntity.ok(user);

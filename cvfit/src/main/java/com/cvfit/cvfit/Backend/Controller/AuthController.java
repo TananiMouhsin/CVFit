@@ -1,16 +1,21 @@
 package com.cvfit.cvfit.Backend.Controller;
 
-import com.cvfit.cvfit.Backend. DTOs.AuthRequest;
-import com.cvfit.cvfit.Backend.Entities.User;
-import com.cvfit.cvfit.Backend.repository.UserRepository;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
+import java. util.Optional;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
+import com.cvfit.cvfit.Backend.DTOs.AuthRequest;
+import com.cvfit.cvfit.Backend.Entities.User;
+import com.cvfit.cvfit.Backend.repository.UserRepository;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/auth")
@@ -57,6 +62,11 @@ public class AuthController {
         return ResponseEntity.ok("Login successful");
     }
 
+
+    @PostMapping("/s")
+    public String ss(){
+        return "llll";
+    }
 
 
 

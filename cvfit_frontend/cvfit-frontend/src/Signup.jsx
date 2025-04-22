@@ -1,6 +1,14 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import cvimg from './assets/cvimg.png'
+import gmailimg from './assets/envelope.png'
+import lockimg from './assets/padlock.png'
+import googleimg from './assets/google.png'
+import "./signup.css";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+    const navigate = useNavigate();
+  
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -22,7 +30,7 @@ const SignUp = () => {
 
     console.log("Sending data:", data); // Vérifie le contenu envoyé
 
-    const response = await fetch("http://localhost:9090/auth/signup", {
+    const response = await fetch("http://localhost:8080/auth/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -32,6 +40,30 @@ const SignUp = () => {
 
     if (response.ok) {
       console.log("User registered successfully");
+      const data1 = {
+
+        email: formData.email,
+        password: formData.password, // Vérifier que ce champ a bien une valeur
+      };
+  
+      console.log("Sending data:", data1); // Vérifie le contenu envoyé
+  
+      const response = await fetch("http://localhost:8080/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(data1),
+      });
+  
+      if (response.ok) {
+        console.log(document.cookie); 
+        console.log("User registered successfully");
+        navigate("/home");
+      } else {
+        console.error("login failed", await response.text());
+      }
     } else {
       console.error("Signup failed", await response.text());
     }
@@ -40,7 +72,7 @@ const SignUp = () => {
   return (
     <div className="signup-container">
       <div className="left-section">
-        <img src="/cv.png" alt="Signup Illustration" className="signup-image" />
+        <img src={cvimg} alt="Signup Illustration" className="signup-image" />
       </div>
 
       <div className="right-section">
@@ -63,7 +95,7 @@ const SignUp = () => {
             <input
               type="text"
               name="username"
-              placeholder="Last Name"
+              placeholder="UserName"
               value={formData.username}
               onChange={handleChange}
               required

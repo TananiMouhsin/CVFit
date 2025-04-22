@@ -3,9 +3,13 @@ import cvimg from './assets/cvimg.png'
 import gmailimg from './assets/envelope.png'
 import lockimg from './assets/padlock.png'
 import googleimg from './assets/google.png'
+import { useNavigate } from "react-router-dom";
+
 import "./Login.css";
 
 const Login = () => {
+  const navigate = useNavigate();
+  
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -17,11 +21,51 @@ const Login = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
 
+    const data = {
+
+      email: formData.email,
+      password: formData.password, // Vérifier que ce champ a bien une valeur
+    };
+
+    console.log("Sending data:", data); // Vérifie le contenu envoyé
+
+    const response = await fetch("http://localhost:8080/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      console.log(document.cookie); 
+      console.log("User registered successfully");
+      // try {
+      //   const response = await fetch("http://localhost:8080/user/me", {
+      //     method: "GET",
+      //     credentials: "include", // 👈 makes the browser send the JSESSIONID cookie
+      //   });
     
+      //   if (response.ok) {
+      //     const userData = await response.json();
+      //     console.log("✅ User info:", userData);
+      //   } else {
+      //     const error = await response.text();
+      //     console.error("❌ Failed to fetch user info:", error);
+      //   }
+      // } catch (err) {
+      //   console.error("❗ Error while fetching user info:", err);
+      // }
+      
+
+      navigate("/home");
+    } else {
+      console.error("Signup failed", await response.text());
+    }
   };
 
   return (
