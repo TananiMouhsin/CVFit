@@ -1,0 +1,144 @@
+/* Style global du profil */
+.profile-menu-container {
+    position: relative;
+  }
+  
+  .profile-icon {
+    cursor: pointer;
+  }
+  
+  .profile-icon img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  
+  /* Style du menu déroulant */
+  .dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px); /* Affiche juste en dessous de l'icône */
+    right: 0;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    z-index: 2000;
+    width: 200px;
+  
+    /* Animation fluide (facultative) */
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Menu caché par défaut */
+  .dropdown-menu.hidden {
+    display: none;
+  }
+  
+  /* Menu visible si toggle */
+  .profile-menu-container .dropdown-menu.visible {
+    display: block;
+  }
+  
+  .dropdown-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .dropdown-menu li {
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    text-align: center;
+    border-bottom: 1px solid #f1f1f1;
+  }
+  
+  .dropdown-menu li:last-child {
+    border-bottom: none;
+  }
+  
+  .dropdown-menu li:hover {
+    background-color: #f0f0f0;
+  }
+  
+  /* Lien standard */
+  .dropdown-menu ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+    display: block;
+  }
+  
+  /* Style pour l'élément Logout */
+  .dropdown-menu li.logout {
+    color: red;
+    font-weight: bold;
+  }
+  
+  .dropdown-menu li.logout:hover {
+    color: #c82333;
+  }
+  
+  /* Style pour l'alerte de confirmation */
+  .logout-confirmation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .confirmation-dialog {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .confirmation-dialog p {
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .confirmation-actions {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .confirm-btn,
+  .cancel-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+  }
+  
+  .confirm-btn {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .cancel-btn {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .confirm-btn:hover {
+    background-color: #218838;
+  }
+  
+  .cancel-btn:hover {
+    background-color: #c82333;
+  }
+  

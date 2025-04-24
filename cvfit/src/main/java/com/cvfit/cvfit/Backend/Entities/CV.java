@@ -18,7 +18,7 @@ public class CV {
 
     private String pdfCv; // File path or URL
     private String strengths;
-    private String enhancements;
+    private String enhancements; 
 
     @OneToMany(mappedBy = "cv", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Role> roles;

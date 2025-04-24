@@ -1,6 +1,6 @@
 package com.cvfit.cvfit.Backend.Controller;
 
-import com.cvfit.cvfit.Backend. DTOs.AuthRequest;
+import com.cvfit.cvfit.Backend.DTOs.AuthRequest;
 import com.cvfit.cvfit.Backend.Entities.User;
 import com.cvfit.cvfit.Backend.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,6 +24,11 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @PostMapping("/s")
+    public String ss() {
+        return "llll";
+    }
+
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody User user) {
         Optional<User> existingUser = userRepository.findByUserEmail(user.getUserEmail());
@@ -36,7 +41,6 @@ public class AuthController {
         userRepository.save(user);
         return ResponseEntity.ok("User registered successfully");
     }
-
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody AuthRequest request, HttpServletRequest req) {
@@ -57,9 +61,6 @@ public class AuthController {
         return ResponseEntity.ok("Login successful");
     }
 
-
-
-
     @PostMapping("/logout")
     public ResponseEntity<String> logout(HttpServletRequest req) {
         HttpSession session = req.getSession(false);
@@ -74,6 +75,5 @@ public class AuthController {
 
         return ResponseEntity.ok("Logged out successfully");
     }
-
 
 }

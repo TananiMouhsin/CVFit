@@ -1,6 +1,5 @@
 package com.cvfit.cvfit.Backend.Config;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +19,8 @@ import com.cvfit.cvfit.Backend.Security.CustomUserDetailsService;
 import com.cvfit.cvfit.Backend.repository.UserRepository;
 
 import jakarta.servlet.http.HttpServletResponse;
-@ComponentScan(basePackages = "com.example.demo")
+
+@ComponentScan(basePackages = "com.cvfit.cvfit")
 @Configuration
 public class SecurityConfig {
 
@@ -29,20 +29,26 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/login", "/auth/signup", "/auth/logout").permitAll()
-                        .requestMatchers("/user/me", "/CVReview/CV","/CVRoles/Scrap","/CVRoles/GetRoles").permitAll()
-                        .anyRequest().authenticated()
-                )
+                        .requestMatchers("/auth/**", "/profile/**").permitAll()
+                        .requestMatchers("/user/me", "/CVReview/CV", "/CVRoles/Scrap",
+                                "/CVRoles/GetRoles")
+                        .permitAll()
+                        .anyRequest().authenticated())
+                // http
+                // .csrf(csrf -> csrf.disable())
+                // .authorizeHttpRequests(auth -> auth
+                // .anyRequest().permitAll())
+
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .exceptionHandling(handling -> handling.authenticationEntryPoint(
-                        (request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
-                ));
+                        (request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED)));
 
         return http.build();
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+            throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
