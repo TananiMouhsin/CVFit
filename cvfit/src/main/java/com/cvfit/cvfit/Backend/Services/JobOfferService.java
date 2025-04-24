@@ -19,33 +19,34 @@ public class JobOfferService {
     @Autowired
     private CVRepository cvRepository;
 
-    public void saveJobOfferForUser(User user, String title, String link) {
-        // Vérifier si le CV existe déjà pour l'utilisateur (ici on suppose que vous avez une méthode pour retrouver un CV)
-        Optional<CV> optionalCV = cvRepository.findTopByUserOrderByCvIdDesc(user);  // Exemple avec le dernier CV de l'utilisateur
-
+    public void saveJobOfferForUser(User user, String title, String link, String cvName) {
+        // Vérifier si le CV existe déjà pour l'utilisateur et le nom donné
+        Optional<CV> optionalCV = cvRepository.findByUserAndCvName(user, cvName);
         CV cv;
 
         if (optionalCV.isPresent()) {
-            // Si le CV existe, récupère l'ID du CV existant
+            // Le CV existe déjà → on récupère son ID
             cv = optionalCV.get();
-            System.out.println("✅ CV existant trouvé pour l'utilisateur.");
+            System.out.println("✅ CV existant trouvé : ID = " + cv.getCvId());
         } else {
-            // Si le CV n'existe pas, créez un nouveau CV avec des valeurs vides pour strengths et enhancements
+            // Sinon, on crée un nouveau CV
             cv = new CV();
-            cv.setUser(user);  // Associer le CV à l'utilisateur
-            cv.setCvName("defaultCvName");  // Utilisez un nom par défaut ou un autre critère pour le nom du CV
-            cv.setStrengths("");  // Forces vides
-            cv.setEnhancements("");  // Améliorations vides
-            cv.setPdfCv("uploads/defaultCv.pdf");  // Chemin par défaut du fichier PDF
-            cv = cvRepository.save(cv);  // Sauvegarder le CV dans la base de données
-            System.out.println("➕ Nouveau CV créé avec cvName: " + cv.getCvName());
+            cv.setUser(user);                      // Associer le CV à l'utilisateur
+            cv.setCvName(cvName);                  // Nom donné
+            cv.setStrengths("");                   // Champ strengths vide
+            cv.setEnhancements("");                // Champ enhancements vide
+            cv.setPdfCv("uploads/" + cvName);      // Chemin PDF par défaut
+            cv = cvRepository.save(cv);            // Enregistrer le nouveau CV
+            System.out.println("➕ Nouveau CV créé avec ID = " + cv.getCvId());
         }
 
-        // Créer et sauvegarder l'offre de travail associée au CV récupéré ou créé
-        JobOffer jobOffer = new JobOffer(title, link, cv);  // Associer l'offre de travail au CV
-        jobOfferRepository.save(jobOffer);  // Sauvegarder l'offre dans la base de données
-        System.out.println("💼 Offre enregistrée avec succès avec l'ID du CV: " + cv.getCvId());
+        // Créer et enregistrer l'offre de travail liée au CV
+        JobOffer jobOffer = new JobOffer(title, link, cv);
+        jobOfferRepository.save(jobOffer);
+        System.out.println("💼 Offre enregistrée avec succès (CV ID = " + cv.getCvId() + ")");
     }
+
+
 
     public boolean deleteJobOfferByIdAndTitle(User user, Long offerId, String title) {
         Optional<CV> cvOpt = cvRepository.findTopByUserOrderByCvIdDesc(user);

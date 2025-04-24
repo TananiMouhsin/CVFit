@@ -23,6 +23,7 @@ public class JobOfferController {
     @PostMapping("/save")
     public ResponseEntity<String> saveJobOffer(@RequestParam String title,
                                                @RequestParam String link,
+                                               @RequestParam String cvName,
                                                HttpSession session) {
         User user = (User) session.getAttribute("user");
 
@@ -31,13 +32,16 @@ public class JobOfferController {
         }
 
         try {
-            jobOfferService.saveJobOfferForUser(user, title, link);  // Pas besoin de passer cvId, tout se fait dans le service
+            jobOfferService.saveJobOfferForUser(user, title, link, cvName);
             return ResponseEntity.ok("Offre de travail enregistrée avec succès !");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Erreur : " + e.getMessage());
         }
     }
+
+
+
 
 
     @DeleteMapping("/delete")

@@ -13,4 +13,7 @@ public interface CVRepository extends JpaRepository<CV, Long> {
 
     // Recherche du dernier CV pour l'utilisateur
     Optional<CV> findTopByUserOrderByCvIdDesc(User user);
+
+    // Recherche d'un CV par ID, nom et utilisateur
+    Optional<CV> findByCvIdAndCvNameAndUser(Long cvId, String cvName, User user);
 }
