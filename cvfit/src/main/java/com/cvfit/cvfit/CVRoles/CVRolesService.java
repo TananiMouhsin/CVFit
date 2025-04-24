@@ -1,4 +1,5 @@
 package com.cvfit.cvfit.CVRoles;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,9 +31,8 @@ import io.github.cdimascio.dotenv.Dotenv;
 
 public class CVRolesService {
 
-
-    public static List<Map<String, String>> Scrape(String titleKeyword){
-        return Stages_emplois_scrapping(titleKeyword); 
+    public static List<Map<String, String>> Scrape(String titleKeyword) {
+        return Stages_emplois_scrapping(titleKeyword);
     }
 
     public static List<Map<String, String>> scrape_stages_emplois(String searchUrl, int maxPages) {
@@ -59,58 +59,49 @@ public class CVRolesService {
         return jobList;
     }
 
-    
     public static List<Map<String, String>> Stages_emplois_scrapping(String titleKeyword) {
-        
+
         String searchUrl;
 
-        
-
         searchUrl = "https://www.stages-emplois.com/recherche-emploi.php?qemploi=" + titleKeyword.toLowerCase();
-        List<Map<String, String>> jobList = scrape_stages_emplois(searchUrl, 10); 
+        List<Map<String, String>> jobList = scrape_stages_emplois(searchUrl, 10);
         List<Map<String, String>> filteredJobs = new ArrayList<>();
-        return jobList ; 
+        return jobList;
     }
 
-
-    public static String[] GetRoles(MultipartFile file){
+    public static String[] GetRoles(MultipartFile file) {
         String file_text = extractTextFromPdf(file);
-        try{
-            String finalresumetext =encodeString(file_text);
+        try {
+            String finalresumetext = encodeString(file_text);
             String[] jobRoles = analyzeResumeForJobRoles(finalresumetext);
-
 
             return jobRoles;
 
-
-        }catch(UnsupportedEncodingException e){
-                e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
-        return new String[] {"Failed to extract roles"};
+        return new String[] { "Failed to extract roles" };
     }
-    
-
 
     public static String encodeString(String input) throws UnsupportedEncodingException {
         return URLEncoder.encode(input, "UTF-8");
     }
 
     public static String extractTextFromPdf(MultipartFile file) {
-            if (file.isEmpty()) {
-                throw new IllegalArgumentException("Uploaded file is empty");
-            }
+        if (file.isEmpty()) {
+            throw new IllegalArgumentException("Uploaded file is empty");
+        }
 
-            try (InputStream inputStream = file.getInputStream();
+        try (InputStream inputStream = file.getInputStream();
                 PDDocument document = PDDocument.load(inputStream)) {
-                
-                PDFTextStripper pdfStripper = new PDFTextStripper();
-                return pdfStripper.getText(document);
-                
-            } catch (IOException e) {
-                throw new RuntimeException("Error processing PDF file", e);
-            }
-    }
 
+            PDFTextStripper pdfStripper = new PDFTextStripper();
+            return pdfStripper.getText(document);
+
+        } catch (IOException e) {
+            throw new RuntimeException("Error processing PDF file", e);
+        }
+    }
 
     public static String[] analyzeResumeForJobRoles(String resumeText) {
         Path path = Paths.get("cvfit/.").toAbsolutePath().getParent();
@@ -121,7 +112,7 @@ public class CVRolesService {
         System.out.println(apiKey);
 
         if (apiKey == null || apiKey.isEmpty()) {
-            return new String[] {"API Key not found in .env file!"};
+            return new String[] { "API Key not found in .env file!" };
         }
 
         try {
@@ -131,16 +122,17 @@ public class CVRolesService {
             con.setRequestProperty("Authorization", "Bearer " + apiKey);
             con.setRequestProperty("Content-Type", "application/json");
 
-
             String body = "{\n" +
-                          "  \"model\": \"" + model + "\",\n" +
-                          "  \"messages\": [\n" +
-                          "    {\"role\": \"system\", \"content\": \"You are a helpful assistant specializing in career guidance.\"},\n" +
-                          "    {\"role\": \"user\", \"content\": \"Analyze the following resume and identify specific job roles or titles that the candidate is suitable for, based on their skills and experience. Return the roles in a clear, comma-separated list format without any text before or after .\\n\\nResume Text:\\n" + resumeText + "\"}\n" +
-                          "  ],\n" +
-                          "  \"max_tokens\": 1000,\n" +
-                          "  \"temperature\": 0.7\n" +
-                          "}";
+                    "  \"model\": \"" + model + "\",\n" +
+                    "  \"messages\": [\n" +
+                    "    {\"role\": \"system\", \"content\": \"You are a helpful assistant specializing in career guidance.\"},\n"
+                    +
+                    "    {\"role\": \"user\", \"content\": \"Analyze the following resume and identify specific job roles or titles that the candidate is suitable for, based on their skills and experience. Return the roles in a clear, comma-separated list format without any text before or after .\\n\\nResume Text:\\n"
+                    + resumeText + "\"}\n" +
+                    "  ],\n" +
+                    "  \"max_tokens\": 1000,\n" +
+                    "  \"temperature\": 0.7\n" +
+                    "}";
 
             System.out.println("Body: " + body + "\n");
 
@@ -167,22 +159,22 @@ public class CVRolesService {
 
     private static String[] extractJobRoles(String jsonResponse) {
         String[] roles = new String[0]; // Initialize with an empty array to avoid null errors
-    
+
         try {
             JSONObject obj = new JSONObject(jsonResponse);
             JSONArray choices = obj.getJSONArray("choices");
-    
+
             if (choices.length() > 0) {
                 JSONObject firstChoice = choices.getJSONObject(0);
                 JSONObject message = firstChoice.getJSONObject("message");
                 String responseText = message.getString("content").trim();
-    
+
                 roles = responseText.split(","); // Split the response into roles
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    
+
         return roles; // Now it's always initialized
     }
 

@@ -1,13 +1,19 @@
 package com.cvfit.cvfit.Backend.repository;
 
 import com.cvfit.cvfit.Backend.Entities.CV;
+
 import com.cvfit.cvfit.Backend.Entities.User;
-import org.springframework.data.jpa.repository.JpaRepository;
+
 
 import java.util.Optional;
 
-public interface CVRepository extends JpaRepository<CV, Long> {
+import java.util.List;
 
-    // Juste la méthode de requête ici :
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CVRepository extends JpaRepository<CV, Long> {
+    List<CV> findByUser_UserId(Long userId);
     Optional<CV> findTopByUserOrderByCvIdDesc(User user);
+
+
 }

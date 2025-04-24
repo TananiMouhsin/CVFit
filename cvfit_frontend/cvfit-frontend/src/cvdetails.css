@@ -1,0 +1,336 @@
+/* ====== GLOBAL ====== */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to bottom, #f7fbff, #e3f2fd);
+}
+
+/* ====== MAIN CONTAINER ====== */
+.CVDetails_main {
+    padding: 120px 40px 40px;
+}
+
+/* ====== HEADER ====== */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #dbeeff;
+    padding: 12px 40px;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+}
+
+.tabs-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.tabs {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 600;
+    color: #555;
+}
+
+.tabs span {
+    cursor: pointer;
+    transition: 0.3s ease;
+    padding: 8px 16px;
+    border-radius: 20px;
+}
+
+.tabs span:hover {
+    background-color: #b4d8ff;
+    color: #003366;
+}
+
+.tabs .active-tab {
+    background-color: #1e90ff;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* ====== PROFILE ICON (UTILISATEUR) ====== */
+.profile-icon {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    z-index: 1000; /* S'assurer que l'icône est au-dessus des autres éléments */
+}
+
+.profile-icon img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: block; /* S'assurer que l'image ne dépasse pas de son conteneur */
+}
+
+/* ====== DROPDOWN MENU ====== */
+
+/* ====== CONTENT SECTION ====== */
+.CVDetails_content {
+    display: flex;
+    margin-top: 30px;
+}
+
+/* ====== SIDEBAR ====== */
+.cv-thumbnails {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-right: 30px;
+}
+
+.cv-thumb {
+    width: 90px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+
+/* ====== CV INFO (RIGHT PART) ====== */
+.cv-info {
+    flex: 1;
+}
+
+/* ====== ROLES ====== */
+.roles-section h3 {
+    font-size: 22px;
+    color: #1b1b1b;
+    margin-bottom: 15px;
+}
+
+.roles-box {
+    background-color: #add8f7;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.roles-box ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding-left: 20px;
+    gap: 10px;
+    font-weight: 500;
+    color: #1d3557;
+}
+
+/* ====== UPDATE PROFILE PAGE ====== */
+.update-profile-container {
+    max-width: 500px;
+    margin: 80px auto;
+    background: #f4f9ff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.update-profile-container h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #1e90ff;
+}
+
+.update-profile-container label {
+    display: block;
+    margin-bottom: 15px;
+    font-weight: 500;
+    color: #333;
+}
+
+.update-profile-container input,
+.update-profile-container select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.update-profile-container button {
+    margin-top: 25px;
+    padding: 12px 20px;
+    width: 100%;
+    background-color: #1e90ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.update-profile-container button:hover {
+    background-color: #0f70d4;
+}
+
+.cv-thumbnails-horizontal {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    gap: 20px;
+}
+
+.cv-thumb-horizontal {
+    width: 100px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cv-thumb-horizontal:hover {
+    transform: scale(1.05);
+}
+
+.cv-thumb-horizontal.selected {
+    border: 3px solid #1e90ff;
+    transform: scale(1.08);
+    box-shadow: 0 0 15px rgba(30, 144, 255, 0.4);
+}
+
+.header-internal {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.jobs-container {
+    display: flex;
+    margin-top: 30px;
+    gap: 30px;
+}
+
+.jobs-container .left img {
+    width: 180px;
+    border-radius: 15px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+}
+
+.jobs-container .right {
+    flex: 1;
+}
+
+.jobs .job {
+    background: #f0f8ff;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.07);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.jobs .job_infos h2 {
+    margin: 0;
+    font-size: 18px;
+    color: #1e3a5f;
+}
+
+.jobs .job_infos p {
+    margin: 4px 0 0;
+    color: #666;
+}
+
+.jobs .button button {
+    background-color: #1e90ff;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.jobs .button button:hover {
+    background-color: #0077cc;
+}
+
+.main-layout {
+    display: flex;
+    padding: 20px;
+    gap: 30px;
+}
+
+.cv-sidebar {
+    width: 180px;
+}
+
+.cv-title {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #1e3a5f;
+}
+
+.cv-thumbnails-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.cv-thumb-vertical {
+    width: 100%;
+    max-width: 120px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cv-thumb-vertical:hover {
+    transform: scale(1.05);
+}
+
+.cv-thumb-vertical.selected {
+    border: 3px solid #1e90ff;
+    transform: scale(1.08);
+    box-shadow: 0 0 12px rgba(30, 144, 255, 0.4);
+}
+
+.content-area {
+    flex: 1;
+}
+
+.tabs-wrapper {
+    margin-bottom: 20px;
+}
+
+.tabs {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.tabs span {
+    cursor: pointer;
+    padding: 10px 15px;
+    background-color: #e0efff;
+    border-radius: 25px;
+    font-weight: 600;
+}
+
+.tabs span.active {
+    background-color: #1e90ff;
+    color: white;
+}
+
+.tabs span:hover {
+    background-color: #b4d8ff;
+}
+

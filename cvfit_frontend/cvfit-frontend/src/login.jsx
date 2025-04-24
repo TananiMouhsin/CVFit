@@ -75,7 +75,7 @@ const Login = () => {
       </div>
 
       <div className="right-section">
-        <div className="header">
+        <div className="login-header">
 
         <h2 className="title">Welcome to CvFit</h2>
         <p className="subtitle">Log into Existing Account</p>

@@ -1,0 +1,59 @@
+.update-profile-container {
+    max-width: 600px;
+    margin: 60px auto;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+  }
+  
+  .update-profile-container h2 {
+    margin-bottom: 30px;
+    text-align: center;
+    color: #2c3e50;
+    font-size: 26px;
+  }
+  
+  .update-profile-container label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #0617ae;
+  }
+  
+  .update-profile-container input,
+  .update-profile-container select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .update-profile-container input:focus,
+  .update-profile-container select:focus {
+    border-color: #3f51b5;
+    outline: none;
+  }
+  
+  .update-profile-container button {
+    padding: 12px;
+    width: 100%;
+    background-color: #3f51b5;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .update-profile-container button:hover {
+    background-color: #303f9f;
+  }
+  

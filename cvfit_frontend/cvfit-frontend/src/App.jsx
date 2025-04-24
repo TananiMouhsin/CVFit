@@ -8,7 +8,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
   import SignUp from "./Signup.jsx"
   import Home from "./Home.jsx"
   import Details from "./Details.jsx"
-
+  import ProfileMenu from "./profile.jsx"
+  import CvDetails from './cvdetails.jsx';
   
   function App() {
 
@@ -40,6 +41,12 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
         <Route path="/Jobs" element={<>
         <Jobs/>
+        </>
+        } />
+
+        
+        <Route path="/Profile" element={<>
+        <CvDetails/>
         </>
         } />
       </Routes>

@@ -47,6 +47,7 @@ public class UserServiceImpl implements UserService {
         return userrepository.findAll();
     }
 
+
     @Override
     public User getCurrentUser() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -56,4 +57,5 @@ public class UserServiceImpl implements UserService {
     return userrepository.findByUserEmail(email)
             .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé : " + email));
 }
+
 }

@@ -30,24 +30,23 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
 
-                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/auth/**", "/profile/**").permitAll()
                         .requestMatchers("/user/me", "/CVReview/CV","/CVRoles/Scrap","/CVRoles/GetRoles").permitAll()
                         .requestMatchers("/cv/upload").authenticated()
-
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                 )
                 .exceptionHandling(handling -> handling.authenticationEntryPoint(
-                        (request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED)
-                ));
+                        (request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED)));
 
         return http.build();
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+            throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 

@@ -41,6 +41,11 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @PostMapping("/s")
+    public String ss() {
+        return "llll";
+    }
+
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody User user) {
         Optional<User> existingUser = userRepository.findByUserEmail(user.getUserEmail());
@@ -81,7 +86,6 @@ public class AuthController {
         System.out.println("✅ Utilisateur authentifié : " + user.getUserEmail());
         return ResponseEntity.ok("Login successful");
     }
-
 
     @PostMapping("/logout")
     public ResponseEntity<String> logout(HttpServletRequest req) {
