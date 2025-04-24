@@ -38,4 +38,26 @@ public class JobOfferController {
                     .body("Erreur : " + e.getMessage());
         }
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteJobOffer(@PathVariable Long id, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Utilisateur non connecté.");
+        }
+
+        try {
+            boolean deleted = jobOfferService.deleteJobOfferById(user, id);
+            if (deleted) {
+                return ResponseEntity.ok("Offre supprimée avec succès !");
+            } else {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Cette offre ne vous appartient pas ou n'existe pas.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erreur lors de la suppression : " + e.getMessage());
+        }
+    }
+
 }
