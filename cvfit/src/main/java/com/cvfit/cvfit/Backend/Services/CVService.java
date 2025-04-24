@@ -1,5 +1,5 @@
 package com.cvfit.cvfit.Backend.Services;
-
+import java.util.Optional;
 import com.cvfit.cvfit.Backend.Entities.CV;
 import com.cvfit.cvfit.Backend.Entities.User;
 import com.cvfit.cvfit.Backend.repository.CVRepository;
@@ -21,28 +21,41 @@ public class CVService {
 
     public CV saveCV(MultipartFile file, User user, String strengths, String enhancements) throws IOException {
         String uploadDir = "uploads/";
-        String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
-        Path filePath = Paths.get(uploadDir + fileName);
+        String originalFileName = file.getOriginalFilename();
+        String uniqueFileName = UUID.randomUUID() + "_" + originalFileName;
+        Path filePath = Paths.get(uploadDir + uniqueFileName);
 
-        System.out.println("UPLOAD DIR: " + filePath.toAbsolutePath());
+        Files.createDirectories(filePath.getParent());
 
-        Files.createDirectories(filePath.getParent()); // Crée le dossier s'il n'existe pas
+        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+        System.out.println("📁 Fichier copié à : " + filePath.toAbsolutePath());
 
-        try {
-            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-            System.out.println("FICHIER COPIÉ !");
-        } catch (IOException e) {
-            System.err.println("ÉCHEC COPIE FICHIER : " + e.getMessage());
-            throw e;
+        // Vérifie si un CV existe déjà pour cet utilisateur
+        Optional<CV> existingCvOpt = cvRepository.findTopByUserOrderByCvIdDesc(user);
+
+        CV cv;
+        if (existingCvOpt.isPresent()) {
+            // 🔄 Mise à jour du CV existant
+            cv = existingCvOpt.get();
+            cv.setStrengths(strengths);
+            cv.setEnhancements(enhancements);
+            cv.setPdfCv(filePath.toString());
+            cv.setCvName(originalFileName);
+            System.out.println("🔄 CV existant mis à jour.");
+        } else {
+            // ➕ Création d’un nouveau CV
+            cv = new CV();
+            cv.setUser(user);
+            cv.setStrengths(strengths);
+            cv.setEnhancements(enhancements);
+            cv.setPdfCv(filePath.toString());
+            cv.setCvName(originalFileName);
+            System.out.println("🆕 Nouveau CV créé.");
         }
-
-        CV cv = new CV();
-        cv.setUser(user);
-        cv.setPdfCv(filePath.toString());
-        cv.setStrengths(strengths);
-        cv.setEnhancements(enhancements);
 
         return cvRepository.save(cv);
     }
+
+
 
 }

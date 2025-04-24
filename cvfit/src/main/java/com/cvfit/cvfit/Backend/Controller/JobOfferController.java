@@ -31,7 +31,7 @@ public class JobOfferController {
         }
 
         try {
-            jobOfferService.saveJobOfferForUser(user, title, link);
+            jobOfferService.saveJobOfferForUser(user, title, link);  // Pas besoin de passer cvId, tout se fait dans le service
             return ResponseEntity.ok("Offre de travail enregistrée avec succès !");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -39,8 +39,11 @@ public class JobOfferController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteJobOffer(@PathVariable Long id, HttpSession session) {
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteJobOffer(@RequestParam Long id,
+                                                 @RequestParam String title,
+                                                 HttpSession session) {
         User user = (User) session.getAttribute("user");
 
         if (user == null) {
@@ -48,11 +51,12 @@ public class JobOfferController {
         }
 
         try {
-            boolean deleted = jobOfferService.deleteJobOfferById(user, id);
+            boolean deleted = jobOfferService.deleteJobOfferByIdAndTitle(user, id, title);
             if (deleted) {
                 return ResponseEntity.ok("Offre supprimée avec succès !");
             } else {
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Cette offre ne vous appartient pas ou n'existe pas.");
+                return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                        .body("Offre introuvable ou ne vous appartient pas.");
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
