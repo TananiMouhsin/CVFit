@@ -16,6 +16,7 @@ body{
     display: flex;
     flex-direction: column;
     height: auto;   
+    align-items: center;
 
 
 
@@ -32,17 +33,28 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
 
 .details-image {
-    width: 15%;
+    width: 20%;
     height: auto;
     border-radius: 10px;
+}
+.details-file {
+    width: 100%;
+    max-width: 800px; /* You can adjust this as needed */
+    height: 100px; /* Adjust the height as needed */
+    border-radius: 8px;
+    border: none;
+    background-color: #fff;
+    display: block;
+    overflow: hidden;
 }
 
 /* Ajustement des icônes et des titres */
 .section {
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -120,3 +132,27 @@ body{
     margin-right: 20px;
 }
 
+.save_cv_details{
+    width: 20%;
+    margin-top: 40px;
+    padding: 0.6% 0%;
+    border:  none ;
+    background-color: white;
+    border-radius: 10px;
+    color: #43b1f1;
+    font-size: large;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+.save_cv_details:hover{
+    width: 20%;
+    margin-top: 40px;
+    padding: 0.6% 0%;
+    border:  none ;
+    background-color: #43b1f1;
+    border-radius: 10px;
+    color: white;
+    font-size: large;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}

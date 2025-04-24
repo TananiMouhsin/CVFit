@@ -154,3 +154,51 @@ body{
     width: 30%;
     
   }
+/* Container for loading spinner */
+.loading-container {
+  position: fixed;  /* Position it above everything else */
+  top: 0;  /* Top of the page */
+  left: 0;
+  width: 100%;
+  height:100vh;
+  background-color: rgba(255, 255, 255, 0); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Ensure it stays above all content */
+  padding: 20px 0;  /* Space around spinner */
+  pointer-events: none;  /* Prevent the loading overlay from blocking clicks */
+}
+
+/* Spinner animation */
+.loading-spinner {
+  border: 4px solid #f3f3f3; /* Light grey */
+  border-top: 4px solid #3498db; /* Blue color */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 2s linear infinite;
+}
+
+/* Keyframes for spinner rotation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Content that will get blurred when loading */
+.home-container {
+  position: relative; /* Allow the content to be positioned normally */
+  transition: filter 0.3s ease; /* Smooth transition for blur effect */
+}
+
+.home-container.blurred {
+  filter: blur(5px); 
+}
+
+/* Optional: Style for the "loading" text */
+.loading-text {
+  font-size: 18px;
+  color: #333;
+  margin-left: 10px;
+}

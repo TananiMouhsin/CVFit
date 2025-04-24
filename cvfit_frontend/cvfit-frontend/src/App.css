@@ -17,7 +17,9 @@ body{
   background: linear-gradient(to bottom, #E8EEF1 20%, #43B0F199 100%);
   height: 100vh;
 }
-
+.header h2 {
+  color: #1E3D58;
+}
 .left{
   padding-top: 5%;
   width: 30%;
@@ -28,8 +30,9 @@ body{
 
 }
 .left img{
-  height: 50%;
-  width: 50%;
+  height: auto;
+  width: 80%;
+  border-radius: 10px;
 }
 .right{
 
@@ -72,7 +75,8 @@ font-weight: bold;
 .job_infos{
   color: #1E3D58;
   line-height: 0.5; 
-  padding-bottom: 2%; 
+  padding-bottom: 2%;
+  width: 70%; 
   overflow: hidden;
 }
 .job_infos h2{
@@ -90,6 +94,9 @@ font-weight: bold;
 .jobs::-webkit-scrollbar {
   display: none; /* Hides scrollbar in Chrome & Safari */
 }
-
+.button{
+  display: flex;
+  align-items: center;
+}
 
 

@@ -1,7 +1,8 @@
 package com.cvfit.cvfit.Backend.Services.Impl;
 
 
-
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import com.cvfit.cvfit.Backend.Entities.User;
 import com.cvfit.cvfit.Backend.Services.UserService;
 import com.cvfit.cvfit.Backend.repository.UserRepository;
@@ -45,4 +46,14 @@ public class UserServiceImpl implements UserService {
 
         return userrepository.findAll();
     }
+
+    @Override
+    public User getCurrentUser() {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    String email = authentication.getName(); 
+    System.out.println("🔍 Authenticated user email: " + email); // ✅ DEBUG PRINT
+
+    return userrepository.findByUserEmail(email)
+            .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé : " + email));
+}
 }

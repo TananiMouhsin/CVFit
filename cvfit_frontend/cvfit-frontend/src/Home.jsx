@@ -1,20 +1,22 @@
 import React, { useState } from "react";
-
-import { Link } from "react-router-dom";
-import "./Home.css";
 import { useNavigate } from "react-router-dom";
+import "./Home.css";
+
 const Home = () => {
   const navigate = useNavigate();
   const [file, setFile] = useState(null);
   const [error, setError] = useState("");
   const [Strengths, setStrengths] = useState("");
   const [Suggestions, setSuggestions] = useState("");
+  const [loading, setLoading] = useState(false); // Add loading state
 
   const uploadCV = async () => {
+    setLoading(true); // Start loading when the function begins
     console.log("Uploading CV..."); 
     if (!file) {
         alert("Veuillez sélectionner un fichier avant d'envoyer !");
-        return;
+        setLoading(false); // Stop loading if there is no file
+        return ;
     } 
 
     const formData = new FormData();
@@ -37,33 +39,24 @@ const Home = () => {
         const strengths = data.strengths || [];
         const suggestions = data.suggestions || [];
 
-        // Find the minimum length between the two arrays
-        const minLength = Math.min(strengths.length, suggestions.length);
-
-        // // Pad the shorter array with empty strings (or any placeholder value)
-        // if (strengths.length < minLength) {
-        //     strengths.push(...Array(minLength - strengths.length).fill(''));
-        // }
-        // if (suggestions.length < minLength) {
-        //     suggestions.push(...Array(minLength - suggestions.length).fill(''));
-        // } 
-
         console.log("Strengths:", strengths);
         console.log("Suggestions:", suggestions);
 
-        // Navigate with the padded arrays
-        navigate("/details", { state: { strengths, suggestions } });
-
+        // Navigate with the data
+        navigate("/details", { state: { strengths, suggestions, file } });
     } catch (error) {
         console.error("Erreur:", error);
+    } finally {
+        setLoading(false); // Stop loading when the function completes
     }
 };
 
-
 const GetJobs = async () => {
+  setLoading(true); // Start loading when the function begins
   console.log("Uploading CV..."); 
   if (!file) {
       alert("Veuillez sélectionner un fichier avant d'envoyer !");
+      setLoading(false); // Stop loading if there is no file
       return;
   } 
 
@@ -92,18 +85,13 @@ const GetJobs = async () => {
 
       console.log("List of Jobs:", jobs);
 
-      // If using React, you can save it in a state (if needed)
-      // setJobs(jobs); // Assuming you have a `jobs` state to store the jobs.
-
-      // If you want to navigate to another page and pass the list of jobs:
-      navigate("/Jobs", { state: { jobs } });
-
+      navigate("/Jobs", { state: { jobs ,file } });
   } catch (error) {
       console.error("Erreur:", error);
+  } finally {
+      setLoading(false); // Stop loading when the function completes
   }
 };
-
-  
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -134,11 +122,16 @@ const GetJobs = async () => {
   };
 
   return (
-    <div className="home-container">
-
-      <div className="auth-buttons">
-
+    <>
+    {loading && (
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
+        <p className="loading-text">Chargement en cours...</p>
       </div>
+    )}
+    <div className={`home-container ${loading ? "blurred" : ""}`}>
+      {/* Loading Spinner */}
+      
 
       <header className="cvfit-header">
         <h1 className="cvfit-title">CvFit</h1>
@@ -152,7 +145,6 @@ const GetJobs = async () => {
         d'emploi adaptées à votre profil. Conseils instantanés et pertinents.
       </p>
 
-     
       <div
         className="upload-section"
         onDrop={handleDrop}
@@ -173,10 +165,12 @@ const GetJobs = async () => {
 
       {/* Buttons */}
       <div className="buttons">
-        <button className="CVbutton" onClick={uploadCV} disabled={!file}>
+        <button className="CVbutton" onClick={uploadCV} disabled={!file || loading}>
           Évaluer mon CV
         </button>
-        <button className="CVbutton" onClick={GetJobs}>Trouver un emploi</button>
+        <button className="CVbutton" onClick={GetJobs} disabled={loading}>
+          Trouver un emploi
+        </button>
       </div>
 
       <p className="cvfit-result-text">
@@ -208,6 +202,7 @@ const GetJobs = async () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

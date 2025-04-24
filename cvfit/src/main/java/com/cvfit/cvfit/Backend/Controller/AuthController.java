@@ -1,21 +1,33 @@
 package com.cvfit.cvfit.Backend.Controller;
 
+
 import java. util.Optional;
+
+import com.cvfit.cvfit.Backend.DTOs.AuthRequest;
+import com.cvfit.cvfit.Backend.Entities.User;
+import com.cvfit.cvfit.Backend.repository.UserRepository;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cvfit.cvfit.Backend.DTOs.AuthRequest;
-import com.cvfit.cvfit.Backend.Entities.User;
-import com.cvfit.cvfit.Backend.repository.UserRepository;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
+
+
+
+
+import java.util.List;
+import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/auth")
@@ -42,7 +54,6 @@ public class AuthController {
         return ResponseEntity.ok("User registered successfully");
     }
 
-
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody AuthRequest request, HttpServletRequest req) {
         User user = userRepository.findByUserEmail(request.getEmail())
@@ -52,22 +63,24 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
         }
 
-        // Store user in session
-        HttpSession session = req.getSession(true); // 🔥 Assure que la session est créée
+        HttpSession session = req.getSession(true);
         session.setAttribute("user", user);
 
-        System.out.println("✅ Utilisateur stocké en session: " + user.getUserEmail());
-        System.out.println("📌 Session ID après login: " + session.getId());
+        // Créer un auth token vide (ou avec rôles si tu les gères)
+        UsernamePasswordAuthenticationToken authToken =
+                new UsernamePasswordAuthenticationToken(user.getUserEmail(), null, List.of());
 
+        // Créer un SecurityContext
+        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+        securityContext.setAuthentication(authToken);
+        SecurityContextHolder.setContext(securityContext);
+
+        // ✅ Lier le SecurityContext à la session
+        session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
+
+        System.out.println("✅ Utilisateur authentifié : " + user.getUserEmail());
         return ResponseEntity.ok("Login successful");
     }
-
-
-    @PostMapping("/s")
-    public String ss(){
-        return "llll";
-    }
-
 
 
     @PostMapping("/logout")
@@ -84,6 +97,4 @@ public class AuthController {
 
         return ResponseEntity.ok("Logged out successfully");
     }
-
-
 }

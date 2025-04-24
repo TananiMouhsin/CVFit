@@ -82,9 +82,9 @@ public class CVReviewService {
         }
     
         String strengthsSection = sections[0].replace("Strengths:", "").trim();
-        String suggestionsSection = sections[1].trim();
+        String suggestionsSection = sections[1].trim(   );
 
-        String trimmedstrengthsSection = strengthsSection.substring(2, strengthsSection.length() - 2);
+        String trimmedstrengthsSection = strengthsSection.substring(2, strengthsSection.length() - 4);
     
         System.out.println(trimmedstrengthsSection);
         System.out.println(suggestionsSection);
@@ -100,25 +100,62 @@ public class CVReviewService {
 
         String[] strengths = extractBulletPoints(strengthsSection);
         String[] suggestions = extractBulletPoints(suggestionsSection);
-    
+        if (suggestions.length > 1) {
+            String[] newSuggestions = new String[suggestions.length - 1];
+            System.arraycopy(suggestions, 1, newSuggestions, 0, suggestions.length - 1);
+            suggestions = newSuggestions; // Now 'suggestions' doesn't include the first element
+        } else {
+            suggestions = new String[0]; // Empty array if there was only one element
+        }
+        if (strengths.length > 1) {
+            String[] newstrengths = new String[strengths.length - 1];
+            System.arraycopy(strengths, 1, newstrengths, 0, strengths.length - 1);
+            strengths = newstrengths; // Now 'suggestions' doesn't include the first element
+        } else {
+            strengths = new String[0]; // Empty array if there was only one element
+        }
+
+        String[] trimmed_suggestions = new String[Math.max(0, suggestions.length - 1)];
+        System.arraycopy(suggestions, 1, trimmed_suggestions, 0, trimmed_suggestions.length);
+
+        // Step 2: Remove everything after the first '.'
+        for (int i = 0; i < trimmed_suggestions.length; i++) {
+            int dotIndex = trimmed_suggestions[i].indexOf('.');
+            if (dotIndex != -1) {
+                trimmed_suggestions[i] = trimmed_suggestions[i].substring(0, dotIndex);
+            }
+        }
+
+
+        String[] trimmed_strengths = new String[Math.max(0, strengths.length - 1)];
+        System.arraycopy(strengths, 1, trimmed_strengths, 0, trimmed_strengths.length);
+
+        // Step 2: Remove everything after the first '.'
+        for (int i = 0; i < trimmed_strengths.length; i++) {
+            int dotIndex = trimmed_strengths[i].indexOf('.');
+            if (dotIndex != -1) {
+                trimmed_strengths[i] = trimmed_strengths[i].substring(0, dotIndex);
+            }
+        }
+
 
         Gson gson = new Gson();
-        String jsonResult = gson.toJson(new Points(strengths, suggestions));
-    
+        String jsonResult = gson.toJson(new Points(trimmed_strengths, trimmed_suggestions));
+     
         return jsonResult;
     }
     
     private static String[] extractBulletPoints(String section) {
-        String[] points = section.split("- ");
+        String[] points = section.split("n-");
         List<String> cleanPoints = new ArrayList<>();
     
         for (String point : points) {
             point = point.trim();
 
-            if (point.endsWith("\\n")) {
-                point = point.substring(0, point.length() - 2).trim();
+            if (point.endsWith("\n")) {
+                point = point.substring(0, point.length() - 3).trim();
             }
-            if (!point.isEmpty()) {
+            if (!point.isEmpty() ) {
                 cleanPoints.add(point);
             }
         }
