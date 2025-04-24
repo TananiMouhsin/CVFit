@@ -207,7 +207,7 @@ body, html {
     margin-top: 40px;
     text-align: center;
 }
-
+/* 
 .jobs-container {
     display: flex;
     margin-top: 30px;
@@ -257,7 +257,7 @@ body, html {
 
 .jobs .button button:hover {
     background-color: #0077cc;
-}
+} */
 
 .main-layout {
     display: flex;

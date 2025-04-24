@@ -20,6 +20,9 @@ body{
 .header h2 {
   color: #1E3D58;
 }
+.Jobs-header h2 {
+  color: #1E3D58;
+}
 .left{
   padding-top: 5%;
   width: 30%;
@@ -45,6 +48,11 @@ body{
 
 }
 .header{
+  text-align: center;
+  /* color: #057DCD; */
+  padding-top: 3%;
+}
+.Jobs-header{
   text-align: center;
   /* color: #057DCD; */
   padding-top: 3%;

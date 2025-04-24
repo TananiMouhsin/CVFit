@@ -81,7 +81,7 @@ function Jobs() {
 
   return (
     <div className="jobspage">
-      <div className="header">
+      <div className="Jobs-header">
         <h2>Emplois</h2>
         <h2>Adapetes à votre CV</h2>
       </div>
