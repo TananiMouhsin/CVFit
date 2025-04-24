@@ -8,6 +8,9 @@ import java.util.Optional;
 
 public interface CVRepository extends JpaRepository<CV, Long> {
 
-    // Juste la méthode de requête ici :
+    // Recherche par utilisateur et nom du CV
+    Optional<CV> findByUserAndCvName(User user, String cvName);
+
+    // Recherche du dernier CV pour l'utilisateur
     Optional<CV> findTopByUserOrderByCvIdDesc(User user);
 }
