@@ -33,4 +33,27 @@ public class JobOfferService {
         JobOffer jobOffer = new JobOffer(title, link, latestCV);
         jobOfferRepository.save(jobOffer);
     }
+
+    public boolean deleteJobOfferById(User user, Long offerId) {
+        Optional<CV> cvOpt = cvRepository.findTopByUserOrderByCvIdDesc(user);
+
+        if (cvOpt.isEmpty()) {
+            throw new RuntimeException("CV non trouvé pour l'utilisateur.");
+        }
+
+        CV userCv = cvOpt.get();
+
+        Optional<JobOffer> offerOpt = jobOfferRepository.findById(offerId);
+        if (offerOpt.isPresent()) {
+            JobOffer offer = offerOpt.get();
+            // Make sure the offer belongs to the user's CV
+            if (offer.getCv().getCvId().equals(userCv.getCvId())) {
+                jobOfferRepository.delete(offer);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }
