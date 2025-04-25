@@ -47,16 +47,25 @@ function Jobs() {
 
   const handleToggleSave = async (title, link) => {
     const isSaved = savedJobs[title];
+    const cvName = file.name
+    console.log(cvName)
     
     try {
       if (isSaved) {
         // DELETE request to unsave
-        await fetch('/delete', {
+        const url = new URL('http://localhost:8080/job-offers/delete');  // Use the actual URL
+        url.searchParams.append('cvTitle', cvName);
+        url.searchParams.append('jobTitle', title);
+        console.log(url)
+        
+        // Send the DELETE request
+        await fetch(url, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
           },
-          body: new URLSearchParams({ title, link }),
+          credentials: "include",
+          // No body needed, since parameters are in the URL
         });
         alert('Offre supprimée des favoris');
       } else {
@@ -66,7 +75,7 @@ function Jobs() {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
           },
-          body: new URLSearchParams({ title, link }),
+          body: new URLSearchParams({ title, link,cvName}),
           credentials: "include",
         });
 

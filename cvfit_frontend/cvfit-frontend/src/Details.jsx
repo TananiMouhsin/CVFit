@@ -65,6 +65,7 @@ const Details = () => {
         formData.append("strengths", Strenghts);
         formData.append("enhancements", Suggestions);
         
+        
         try {
             const response = await fetch("http://localhost:8080/cv/upload", {
                 method: "POST",

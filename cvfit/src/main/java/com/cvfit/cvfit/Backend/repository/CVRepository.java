@@ -13,7 +13,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CVRepository extends JpaRepository<CV, Long> {
-    
+
     List<CV> findByUser_UserId(Long userId);
 
     // Recherche par utilisateur et nom du CV
@@ -23,5 +23,10 @@ public interface CVRepository extends JpaRepository<CV, Long> {
 
     Optional<CV> findTopByUserOrderByCvIdDesc(User user);
 
+
+    // Recherche d'un CV par ID, nom et utilisateur
+    Optional<CV> findByCvIdAndCvNameAndUser(Long cvId, String cvName, User user);
+    
+    Optional<CV> findByUserAndCvNameIgnoreCase(User user, String cvName);
 
 }

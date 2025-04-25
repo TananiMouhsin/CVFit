@@ -26,35 +26,34 @@ public class CVService {
         Path filePath = Paths.get(uploadDir + uniqueFileName);
 
         Files.createDirectories(filePath.getParent());
-
         Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
         System.out.println("📁 Fichier copié à : " + filePath.toAbsolutePath());
 
-        // Vérifie si un CV existe déjà pour cet utilisateur
-        Optional<CV> existingCvOpt = cvRepository.findTopByUserOrderByCvIdDesc(user);
+        // ⚠️ Ici, on vérifie par user + nom du fichier
+        Optional<CV> existingCvOpt = cvRepository.findByUserAndCvName(user, originalFileName);
 
         CV cv;
         if (existingCvOpt.isPresent()) {
-            // 🔄 Mise à jour du CV existant
+            // 🔁 Mise à jour du CV existant (même nom pour ce user)
             cv = existingCvOpt.get();
             cv.setStrengths(strengths);
             cv.setEnhancements(enhancements);
             cv.setPdfCv(filePath.toString());
-            cv.setCvName(originalFileName);
-            System.out.println("🔄 CV existant mis à jour.");
+            System.out.println("🔄 CV existant mis à jour : " + originalFileName);
         } else {
-            // ➕ Création d’un nouveau CV
+            // ➕ Nouveau CV
             cv = new CV();
             cv.setUser(user);
             cv.setStrengths(strengths);
             cv.setEnhancements(enhancements);
             cv.setPdfCv(filePath.toString());
             cv.setCvName(originalFileName);
-            System.out.println("🆕 Nouveau CV créé.");
+            System.out.println("🆕 Nouveau CV enregistré : " + originalFileName);
         }
 
         return cvRepository.save(cv);
     }
+
 
 
 

@@ -16,8 +16,12 @@ public class CV {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
     private String pdfCv; // File path or URL
+    @Column(columnDefinition = "LONGTEXT")
     private String strengths;
-    private String enhancements; 
+    
+    @Column(columnDefinition = "LONGTEXT")
+    private String enhancements;
+     
 
     @OneToMany(mappedBy = "cv", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Role> roles;

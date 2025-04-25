@@ -30,7 +30,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
 
-                        .requestMatchers("/auth/**", "/profile/**").permitAll()
+                        .requestMatchers("/auth/**", "/profile/**","/job-offers/**").permitAll()
                         .requestMatchers("/user/me", "/CVReview/CV","/CVRoles/Scrap","/CVRoles/GetRoles").permitAll()
                         .requestMatchers("/cv/upload").authenticated()
                         .anyRequest().authenticated()

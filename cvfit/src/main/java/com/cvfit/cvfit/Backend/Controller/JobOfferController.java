@@ -23,6 +23,7 @@ public class JobOfferController {
     @PostMapping("/save")
     public ResponseEntity<String> saveJobOffer(@RequestParam String title,
                                                @RequestParam String link,
+                                               @RequestParam String cvName,
                                                HttpSession session) {
         User user = (User) session.getAttribute("user");
 
@@ -31,7 +32,7 @@ public class JobOfferController {
         }
 
         try {
-            jobOfferService.saveJobOfferForUser(user, title, link);  // Pas besoin de passer cvId, tout se fait dans le service
+            jobOfferService.saveJobOfferForUser(user, title, link, cvName);
             return ResponseEntity.ok("Offre de travail enregistrée avec succès !");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -40,28 +41,26 @@ public class JobOfferController {
     }
 
 
+
+
+
     @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteJobOffer(@RequestParam Long id,
-                                                 @RequestParam String title,
-                                                 HttpSession session) {
+    public String deleteJobOffer(@RequestParam String cvTitle,
+                                 @RequestParam String jobTitle,
+                                 HttpSession session) {
+
+        System.out.println("controller");
         User user = (User) session.getAttribute("user");
 
         if (user == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Utilisateur non connecté.");
+            return "User not authenticated";
         }
 
-        try {
-            boolean deleted = jobOfferService.deleteJobOfferByIdAndTitle(user, id, title);
-            if (deleted) {
-                return ResponseEntity.ok("Offre supprimée avec succès !");
-            } else {
-                return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                        .body("Offre introuvable ou ne vous appartient pas.");
-            }
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erreur lors de la suppression : " + e.getMessage());
-        }
+        boolean deleted = jobOfferService.deleteJobOfferByTitleAndCv(user, cvTitle, jobTitle);
+        return deleted ? "Job offer deleted successfully" : "Job offer not found";
     }
+
+
+
 
 }
