@@ -7,6 +7,9 @@ import com.cvfit.cvfit.Backend.Entities.CV;
 import com.cvfit.cvfit.Backend.Entities.JobOffer;
 import com.cvfit.cvfit.Backend.Entities.User;
 import com.cvfit.cvfit.Backend.Services.ProfileService;
+
+import jakarta.servlet.http.HttpSession;
+
 import com.cvfit.cvfit.Backend.Entities.Role;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,14 +40,28 @@ public class ProfileController {
     }
 
     @GetMapping("/cv/{cvId}/jobs")
-    public ResponseEntity<List<JobOfferDTO>> getJobOffersByCvId(@PathVariable Long cvId) {
+    public ResponseEntity<?> getJobOffersByCvId(@PathVariable Long cvId, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+
+        if (user == null) {
+            return ResponseEntity.status(401).body("User not logged in");
+        }
+
+        // (Optionnel) vérifier que le CV appartient à l'utilisateur connecté
+
         List<JobOfferDTO> offers = profileService.getJobOffersByCvId(cvId);
         return ResponseEntity.ok(offers);
     }
 
-    @GetMapping("/cvs/{userId}")
-    public ResponseEntity<List<CVDTO>> getUserCVs(@PathVariable Long userId) {
-        List<CVDTO> cvs = profileService.getUserCVs(userId);
+    @GetMapping("/cvs")
+    public ResponseEntity<?> getUserCVs(HttpSession session) {
+        User user = (User) session.getAttribute("user");
+
+        if (user == null) {
+            return ResponseEntity.status(401).body("User not logged in");
+        }
+
+        List<CVDTO> cvs = profileService.getUserCVs(user.getUserId());
         return ResponseEntity.ok(cvs);
     }
 
