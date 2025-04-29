@@ -18,6 +18,13 @@ public class CorsConfig {
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Allowed methods
                         .allowedHeaders("*") // Allow all headers
                         .allowCredentials(true); // Allow cookies (if needed)
+
+                // Allow access to the /uploads/** endpoint
+                registry.addMapping("/uploads/**")
+                        .allowedOrigins("http://localhost:5173") // Allow frontend access
+                        .allowedMethods("GET") // Only allow GET requests for file access
+                        .allowedHeaders("*") // Allow all headers
+                        .allowCredentials(true); // Allow credentials (cookies)
             }
         };
     }

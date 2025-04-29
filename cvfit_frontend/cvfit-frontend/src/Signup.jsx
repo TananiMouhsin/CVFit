@@ -3,6 +3,8 @@ import cvimg from './assets/cvimg.png'
 import gmailimg from './assets/envelope.png'
 import lockimg from './assets/padlock.png'
 import googleimg from './assets/google.png'
+import userimg from './assets/user.png'
+
 import "./signup.css";
 import { useNavigate } from "react-router-dom";
 
@@ -91,7 +93,8 @@ const SignUp = () => {
             />
           </div> */}
           <div className="input-group">
-            <span className="icon">👤</span>
+            {/* <span className="icon">👤</span> */}
+            <img src={userimg} alt="" />
             <input
               type="text"
               name="username"
@@ -113,7 +116,8 @@ const SignUp = () => {
             </div> */}
 
           <div className="input-group">
-            <span className="icon">📧</span>
+            {/* <span className="icon">📧</span> */}
+            <img src={gmailimg} alt="" />
             <input
               type="email"
               name="email"
@@ -125,7 +129,8 @@ const SignUp = () => {
           </div>
 
           <div className="input-group">
-            <span className="icon">🔒</span>
+            {/* <span className="icon">🔒</span> */}
+            <img src={lockimg} alt="" />
             <input
               type="password"
               name="password"
@@ -143,12 +148,15 @@ const SignUp = () => {
 
         <div className="separator">
           <hr />
-          <span>Or Sign Up with</span>
+          <span>
+          already have an account ?  <span style={{ color: 'blue', cursor: 'pointer' }} onClick={() => window.location.href = '/login'}>Login</span>
+</span>
           <hr />
         </div>
 
         <button className="google-button">
-          <span className="google-icon">🌍</span> Sign Up with Google
+        <img src={googleimg} alt="" />
+        Login with Google
         </button>
       </div>
     </div>

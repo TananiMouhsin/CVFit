@@ -71,7 +71,7 @@ public class ProfileService {
     public List<CVDTO> getUserCVs(Long userId) {
         return cvRepository.findByUser_UserId(userId)
                 .stream()
-                .map(cv -> new CVDTO(cv.getPdfCv()))
+                .map(cv -> new CVDTO(cv.getPdfCv(),cv.getCvId()))
                 .collect(Collectors.toList());
     }
 

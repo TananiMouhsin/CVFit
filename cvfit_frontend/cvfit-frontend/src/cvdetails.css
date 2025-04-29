@@ -207,57 +207,48 @@ body, html {
     margin-top: 40px;
     text-align: center;
 }
-/* 
-.jobs-container {
+
+
+.jobs-container-profile{
+    display: flex ; 
+  
+  
+  
+  }
+  .main-layout{
+    background: linear-gradient(to bottom, #E8EEF1 20%, #43B0F199 100%);
+
+  }
+  .jobspage-profile{
+    height: 100vh;
     display: flex;
-    margin-top: 30px;
-    gap: 30px;
-}
+    flex-direction: column;
+  }
 
-.jobs-container .left img {
-    width: 180px;
-    border-radius: 15px;
-    box-shadow: 0 6px 14px rgba(0,0,0,0.15);
-}
-
-.jobs-container .right {
-    flex: 1;
-}
-
-.jobs .job {
-    background: #f0f8ff;
-    border-radius: 12px;
-    padding: 16px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.07);
+  .right-profile{
+  
+    width: 100%;
+    height: 100%;
+    padding: 10%;
+    /* border-left: 1px solid black ; */
+    padding-top: 3%;
+    
+  
+  }
+  .job-profile{
+    border: 1px black solid ;
+    margin-bottom: 3%;
+    border-radius: 30px    ;
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.jobs .job_infos h2 {
-    margin: 0;
-    font-size: 18px;
-    color: #1e3a5f;
-}
-
-.jobs .job_infos p {
-    margin: 4px 0 0;
-    color: #666;
-}
-
-.jobs .button button {
-    background-color: #1e90ff;
-    color: white;
-    border: none;
-    padding: 10px 16px;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.jobs .button button:hover {
-    background-color: #0077cc;
-} */
+    padding-left: 5%;
+    padding-right: 5%;
+  
+  }
+  .job_infos-profile{
+    font-size: small;
+  }
 
 .main-layout {
     display: flex;
@@ -282,6 +273,9 @@ body, html {
     flex-direction: column;
     gap: 15px;
     align-items: center;
+    height: 700px;        /* or whatever fixed height you want */
+    overflow-y: auto;     /* allow vertical scroll */
+
 }
 
 .cv-thumb-vertical {
@@ -307,14 +301,15 @@ body, html {
     flex: 1;
 }
 
-.tabs-wrapper {
+/* .tabs-wrapper {
     margin-bottom: 20px;
-}
+} */
 
 .tabs {
     display: flex;
     gap: 20px;
     margin-bottom: 20px;
+    
 }
 
 .tabs span {
@@ -334,3 +329,11 @@ body, html {
     background-color: #b4d8ff;
 }
 
+.profilebar{
+    display: flex;
+    width  :100%    ;
+    /* background-color: green; */
+    justify-content: flex-end ; 
+
+
+}

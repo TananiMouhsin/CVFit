@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './profile.css';
 import { Link } from 'react-router-dom';
+import axios from 'axios'; // make sure axios is imported
 
 const ProfileMenu = ({ userIcon }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,10 +24,22 @@ const ProfileMenu = ({ userIcon }) => {
     };
   }, []);
 
-  const handleLogoutClick = () => {
-    setShowLogoutConfirmation(true);
+  const handleLogoutClick = async () => {
+    try {
+      // First show the confirmation (optional if you still want it)
+      setShowLogoutConfirmation(true);
+  
+      // Then send the POST request to /logout
+      await axios.post('http://localhost:8080/auth/logout', {}, { withCredentials: true });
+  
+      // After successful logout, redirect user or refresh page
+      window.location.href = '/login'; // or wherever your login page is
+    } catch (error) {
+      console.error('Failed to logout:', error);
+      alert('Logout failed');
+    }
   };
-
+  
   const handleConfirmLogout = () => {
     alert('You have logged out!');
     setShowLogoutConfirmation(false);
@@ -46,10 +59,10 @@ const ProfileMenu = ({ userIcon }) => {
         <div className="dropdown-menu">
           <ul>
             <li>
-              <Link to="/my-jobs">My Jobs</Link>
+              <Link to="/Profile">My Jobs</Link>
             </li>
             <li>
-              <Link to="/cv-details">CV Details</Link>
+              <Link to="/Profile">CV Details</Link>
             </li>
             <li className="update">
               <Link to="/update-profile">Update Profile</Link>

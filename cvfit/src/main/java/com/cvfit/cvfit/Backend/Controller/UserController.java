@@ -76,7 +76,7 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    @PutMapping("/me")
+    @PutMapping("/update")
     public ResponseEntity<?> updateAuthenticatedUser(@RequestBody User updatedUser, HttpSession session) {
         User user = (User) session.getAttribute("user");
 

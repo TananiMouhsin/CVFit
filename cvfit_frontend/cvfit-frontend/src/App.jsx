@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
   import Details from "./Details.jsx"
   import ProfileMenu from "./profile.jsx"
   import CvDetails from './cvdetails.jsx';
+  import UpdateProfile from './UpdateProfile.jsx';
   
   function App() {
 
@@ -47,6 +48,11 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
         
         <Route path="/Profile" element={<>
         <CvDetails/>
+        </>
+        } />
+
+        <Route path="/update-profile" element={<>
+        <UpdateProfile/>
         </>
         } />
       </Routes>

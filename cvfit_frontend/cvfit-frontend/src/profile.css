@@ -1,6 +1,13 @@
 /* Style global du profil */
 .profile-menu-container {
     position: relative;
+    /* width: 50%;
+    height: 50px; 
+ background-color: red; */
+ margin-right: 20px;
+
+
+    
   }
   
   .profile-icon {
@@ -8,15 +15,15 @@
   }
   
   .profile-icon img {
-    width: 40px;
-    height: 40px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
   }
   
   /* Style du menu déroulant */
   .dropdown-menu {
     position: absolute;
-    top: calc(100% + 8px); /* Affiche juste en dessous de l'icône */
+    top: calc(100% + 8px); 
     right: 0;
     background: white;
     border-radius: 10px;

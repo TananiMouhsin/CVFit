@@ -104,7 +104,10 @@ const Login = () => {
 
         <div className="separator">
           <hr />
-          <span>Or Sign Up with</span>
+          <span>
+  Don't have an account? <span style={{ color: 'blue', cursor: 'pointer' }} onClick={() => window.location.href = '/signup'}>Signup</span>
+</span>
+
           <hr />
         </div>
 

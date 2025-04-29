@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Home.css";
-
+import userIcon from './assets/user.png';
+import ProfileMenu from './profile';
 const Home = () => {
   const navigate = useNavigate();
   const [file, setFile] = useState(null);
@@ -132,12 +133,20 @@ const GetJobs = async () => {
     <div className={`home-container ${loading ? "blurred" : ""}`}>
       {/* Loading Spinner */}
       
-
+      <div className="profilebar">
+                <ProfileMenu userIcon={userIcon} />
+                </div>
+      
       <header className="cvfit-header">
+      
+
+      <div className="header-infos">
+                
         <h1 className="cvfit-title">CvFit</h1>
         <h2 className="cvfit-subtitle">
           JobFit AI : Analyse de CV par IA & Emplois Personnalisés
         </h2>
+      </div>
       </header>
 
       <p className="cvfit-description">
@@ -165,7 +174,7 @@ const GetJobs = async () => {
 
       {/* Buttons */}
       <div className="buttons">
-        <button className="CVbutton" onClick={uploadCV} disabled={!file || loading}>
+        <button className="CVbutton" onClick={uploadCV} disabled={loading}>
           Évaluer mon CV
         </button>
         <button className="CVbutton" onClick={GetJobs} disabled={loading}>

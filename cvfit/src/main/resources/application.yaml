@@ -3,6 +3,8 @@ spring:
     url : jdbc:mysql://localhost:3306/cvfit?useSSL=false
     username : root
     password :
+  resources:
+    static-locations: file:///C:/Users/DELL/Desktop/CVFIT/uploads/
 
 
   jpa.hibernate.ddl_auto : update

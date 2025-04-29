@@ -92,7 +92,7 @@ function Jobs() {
     <div className="jobspage">
       <div className="Jobs-header">
         <h2>Emplois</h2>
-        <h2>Adapetes à votre CV</h2>
+        <h2>Adaptées à votre CV</h2>
       </div>
       <div className="jobs-container">
         <div className="left">
